@@ -27,6 +27,10 @@ require("lazy").setup({
     end,
   },
   {
+    "wakatime/vim-wakatime",
+    lazy = false,
+  },
+  {
     "alvan/vim-closetag",
     ft = { "html", "xhtml", "xml", "jsx", "tsx", "javascriptreact", "typescriptreact", "vue", "svelte", "php" },
     init = function()
