@@ -27,6 +27,16 @@ require("lazy").setup({
     end,
   },
   {
+    "alvan/vim-closetag",
+    ft = { "html", "xhtml", "xml", "jsx", "tsx", "javascriptreact", "typescriptreact", "vue", "svelte", "php" },
+    init = function()
+      vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.jsx,*.tsx,*.vue,*.svelte,*.php"
+      vim.g.closetag_filetypes = "html,xhtml,xml,jsx,tsx,javascriptreact,typescriptreact,vue,svelte,php"
+      vim.g.closetag_shortcut = ">"
+      vim.g.closetag_close_shortcut = "<leader>>"
+    end,
+  },
+  {
     "stevearc/oil.nvim",
     lazy = false,
     opts = {
