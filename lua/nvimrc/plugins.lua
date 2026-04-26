@@ -18,15 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "Mofiqul/vscode.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("vscode").setup({ style = "dark" })
-      vim.cmd.colorscheme("vscode")
-    end,
-  },
-  {
     "wakatime/vim-wakatime",
     lazy = false,
   },
@@ -43,20 +34,34 @@ require("lazy").setup({
   {
     "stevearc/oil.nvim",
     lazy = false,
-    opts = {
-      default_file_explorer = true,
-      view_options = {
-        show_hidden = true,
-      },
-    },
+    config = function()
+      require("oil").setup({
+        default_file_explorer = true,
+        view_options = { show_hidden = true },
+        skip_confirm_for_simple_edits = true,
+      })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "oil",
+        callback = function(args)
+          vim.cmd([[cnoreabbrev <buffer> <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'lua require("oil").close()' : 'q']])
+        end,
+      })
+    end,
   },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-      messages = { enabled = false },
-      notify = { enabled = false },
+      routes = {
+        { filter = { event = "notify", find = "WakaTime" }, opts = { skip = true } },
+        { filter = { event = "msg_show", find = "WakaTime" }, opts = { skip = true } },
+        { filter = { event = "msg_showmode", find = "WakaTime" }, opts = { skip = true } },
+        { filter = { error = true, find = "WakaTime" }, opts = { skip = true } },
+        { filter = { warning = true, find = "WakaTime" }, opts = { skip = true } },
+      },
+      messages = { enabled = true, view = "mini", view_error = "mini", view_warn = "mini" },
+      notify = { enabled = true, view = "mini" },
       lsp = {
         progress = { enabled = false },
         hover = { enabled = false },
@@ -70,6 +75,15 @@ require("lazy").setup({
           search_up = { kind = "search", pattern = "^%?", icon = "?", lang = "regex" },
           lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "lua", lang = "lua" },
           help = { pattern = "^:%s*he?l?p?%s+", icon = "?" },
+        },
+      },
+      format = {
+        level = {
+          icons = {
+            error = "E",
+            warn = "!",
+            info = "i",
+          },
         },
       },
       views = {
