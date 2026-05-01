@@ -22,6 +22,11 @@ require("lazy").setup({
     lazy = false,
   },
   {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
+  {
     "alvan/vim-closetag",
     ft = { "html", "xhtml", "xml", "jsx", "tsx", "javascriptreact", "typescriptreact", "vue", "svelte", "php" },
     init = function()
@@ -44,6 +49,7 @@ require("lazy").setup({
         pattern = "oil",
         callback = function(args)
           vim.cmd([[cnoreabbrev <buffer> <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'lua require("oil").close()' : 'q']])
+          vim.keymap.set("n", "<Esc>", function() require("oil").close() end, { buffer = args.buf, desc = "Close oil" })
         end,
       })
     end,
@@ -59,6 +65,7 @@ require("lazy").setup({
         { filter = { event = "msg_showmode", find = "WakaTime" }, opts = { skip = true } },
         { filter = { error = true, find = "WakaTime" }, opts = { skip = true } },
         { filter = { warning = true, find = "WakaTime" }, opts = { skip = true } },
+        { view = "mini", filter = { event = "msg_showmode" } },
       },
       messages = { enabled = true, view = "mini", view_error = "mini", view_warn = "mini" },
       notify = { enabled = true, view = "mini" },

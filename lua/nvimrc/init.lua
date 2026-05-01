@@ -18,11 +18,12 @@ end
 local opt = vim.opt
 
 opt.number = true
-opt.relativenumber = false
+opt.relativenumber = true
 opt.signcolumn = "no"
 opt.fillchars:append({ eob = " " })
 opt.shortmess:append("I")
-opt.cursorline = false
+opt.cursorline = true
+opt.cursorlineopt = "number"
 opt.spell = false
 opt.termguicolors = true
 opt.scrolloff = 8
@@ -45,6 +46,10 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.laststatus = 3
+
+opt.foldmethod = "indent"
+opt.foldlevel = 99
+opt.foldenable = true
 
 opt.undofile = true
 opt.swapfile = false
@@ -72,7 +77,7 @@ local function set_default_colors()
   vim.api.nvim_set_hl(0, "MsgArea", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#504945", bg = "#282820" })
   vim.api.nvim_set_hl(0, "WinSeparatorActive", { fg = "#ff922f", bg = "#282820", bold = true })
-  vim.api.nvim_set_hl(0, "LineNr", { fg = "#EBDBB2", bg = "#282820" })
+  vim.api.nvim_set_hl(0, "LineNr", { fg = "#7c6f64", bg = "#282820" })
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "NormalFloat", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#504945", bg = "#282820" })

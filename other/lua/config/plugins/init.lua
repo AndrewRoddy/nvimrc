@@ -1,0 +1,6 @@
+require("config.plugins.treesitter")
+require("config.plugins.telescope")
+require("config.plugins.miniclue")
+require("config.plugins.codecompanion")
+require("config.plugins.ufo")
+require("config.plugins.tjlang").setup()
