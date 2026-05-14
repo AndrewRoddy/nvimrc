@@ -1,4 +1,4 @@
-do
+if vim.g.wakatime_enabled then
   local orig_notify = vim.notify
   vim.notify = function(msg, level, opts)
     if type(msg) == "string" and msg:find("WakaTime", 1, true) then return end
@@ -61,7 +61,8 @@ opt.updatetime = 250
 opt.timeoutlen = 300
 
 if vim.fn.has("win32") == 1 then
-  opt.shell = "pwsh.exe"
+  local pwsh = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+  opt.shell = pwsh
   opt.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
   opt.shellredir = '2>&1 | %{ "$_" } | Out-File %s; exit $LastExitCode'
   opt.shellpipe = '2>&1 | %{ "$_" } | tee %s; exit $LastExitCode'

@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {
     "wakatime/vim-wakatime",
+    enabled = vim.g.wakatime_enabled == true,
     lazy = false,
   },
   {
@@ -53,6 +54,10 @@ require("lazy").setup({
         end,
       })
     end,
+  },
+  {
+    dir = vim.fn.stdpath("config") .. "/local-plugins/splunk-syntax-highlighting",
+    ft = "splunk",
   },
   {
     "folke/noice.nvim",
@@ -101,5 +106,9 @@ require("lazy").setup({
         },
       },
     },
+  },
+  {
+    dir = vim.fn.stdpath("config") .. "/local-plugins/splunk-syntax-highlighting",
+    ft = "splunk",
   },
 })

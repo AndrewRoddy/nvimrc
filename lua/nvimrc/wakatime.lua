@@ -58,7 +58,17 @@ local function upsert_setting(lines, key, value)
   return lines
 end
 
+local function ensure_cli()
+  local dir = vim.fn.expand("~/.wakatime/")
+  local target = dir .. "wakatime-cli.exe"
+  local source = dir .. "wakatime-cli-windows-amd64.exe"
+  if vim.fn.filereadable(target) == 0 and vim.fn.filereadable(source) == 1 then
+    vim.fn.system({ "cmd", "/c", "mklink", "/H", target, source })
+  end
+end
+
 function M.setup()
+  ensure_cli()
   local env = parse_env(vim.fn.stdpath("config") .. "/.env")
   if not env.WAKATIME_API_KEY or env.WAKATIME_API_KEY == "" then return end
   local cfg_path = vim.fn.expand("~/.wakatime.cfg")
