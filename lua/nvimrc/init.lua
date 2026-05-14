@@ -122,6 +122,9 @@ map("v", "<", "<gv", { desc = "Indent left, keep selection" })
 map("v", ">", ">gv", { desc = "Indent right, keep selection" })
 map({ "i", "v", "n", "s", "x" }, "<A-a>", "<Esc>", { desc = "Enter normal mode" })
 map("t", "<A-a>", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal" })
+-- Mac Option+a sends å when terminal doesn't treat Option as Meta
+map({ "i", "v", "n", "s", "x" }, "å", "<Esc>", { desc = "Enter normal mode (mac option+a)" })
+map("t", "å", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal (mac option+a)" })
 map({ "n", "v", "s", "x" }, "<C-s>", "<cmd>w<cr>", { desc = "Save" })
 map("i", "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
 
