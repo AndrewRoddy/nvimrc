@@ -25,6 +25,9 @@ syn region splunkComment start="```" end="```" contains=NONE
 " comment() macro comments
 syn region splunkCommentMacro start="`comment(" end=")`" contains=NONE
 
+" ---- XML-style comments ----
+syn region splunkXMLComment start=/<!--/ end=/-->/
+
 " ---- Strings ----
 syn region splunkString start=/"/ skip=/\\"/ end=/"/ contains=splunkStringEscape
 syn region splunkString start=/'/ skip=/\\'/ end=/'/
@@ -46,7 +49,7 @@ syn match splunkOperator /[+\-*\/%]/
 
 " ---- Relative time expressions ----
 " Matches patterns like: -24h@h  +7d  @h  now  -1mon@mon  +0s  -15m@m
-syn match splunkTimeExpr /\([+-]\?\d*\)\?\(s\|sec\|secs\|second\|seconds\|m\|min\|mins\|minute\|minutes\|h\|hr\|hrs\|hour\|hours\|d\|day\|days\|w\|week\|weeks\|mon\|month\|months\|q\|qtr\|quarter\|quarters\|y\|yr\|year\|years\)\(@\(s\|sec\|secs\|second\|seconds\|m\|min\|minute\|minutes\|h\|hr\|hour\|hours\|d\|day\|days\|w\|week\|weeks\|mon\|month\|months\|q\|qtr\|quarter\|quarters\|y\|yr\|year\|years\)\)\?\>/
+syn match splunkTimeExpr /[+-]\?\d\+\(s\|sec\|secs\|second\|seconds\|m\|min\|mins\|minute\|minutes\|h\|hr\|hrs\|hour\|hours\|d\|day\|days\|w\|week\|weeks\|mon\|month\|months\|q\|qtr\|quarter\|quarters\|y\|yr\|year\|years\)\(@\(s\|sec\|secs\|second\|seconds\|m\|min\|minute\|minutes\|h\|hr\|hrs\|hour\|hours\|d\|day\|days\|w\|week\|weeks\|mon\|month\|months\|q\|qtr\|quarter\|quarters\|y\|yr\|year\|years\)\)\?\>/
 syn keyword splunkTimeExpr now
 
 " ---- Time units (bare, as modifiers / span values) ----
@@ -249,5 +252,8 @@ hi def link splunkFunction       Function
 hi def link splunkField          Identifier
 hi def link splunkTimeExpr       PreProc
 hi def link splunkTimeUnit       PreProc
+hi def link splunkXMLComment     Comment
+
+syn sync fromstart
 
 let b:current_syntax = "splunk"

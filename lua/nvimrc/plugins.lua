@@ -57,7 +57,7 @@ require("lazy").setup({
   },
   {
     dir = vim.fn.stdpath("config") .. "/local-plugins/splunk-syntax-highlighting",
-    ft = "splunk",
+    ft = { "splunk", "splunkxml" },
   },
   {
     "folke/noice.nvim",
@@ -106,9 +106,5 @@ require("lazy").setup({
         },
       },
     },
-  },
-  {
-    dir = vim.fn.stdpath("config") .. "/local-plugins/splunk-syntax-highlighting",
-    ft = "splunk",
   },
 })
