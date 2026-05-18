@@ -11,18 +11,23 @@ unlet! b:current_syntax
 syn include @SplunkSPL <sfile>:p:h/splunk.vim
 unlet! b:current_syntax
 
+" splunk.vim sets 'syn case ignore'; restore case-sensitive matching so that
+" XML keyword/match patterns (loaded above) continue to work correctly and
+" so that the regions defined below are compiled under the right case rules.
+syn case match
+
 " SPL inside <query> tags
 syn region splunkXMLQuery matchgroup=xmlTag
       \ start="<query>" end="</query>"
-      \ contains=@SplunkSPL
+      \ contains=@SplunkSPL keepend
 
 " SPL inside <earliest> and <latest> tags (time range fields)
 syn region splunkXMLTimeField matchgroup=xmlTag
       \ start="<earliest>" end="</earliest>"
-      \ contains=@SplunkSPL
+      \ contains=@SplunkSPL keepend
 syn region splunkXMLTimeField matchgroup=xmlTag
       \ start="<latest>" end="</latest>"
-      \ contains=@SplunkSPL
+      \ contains=@SplunkSPL keepend
 
 syn sync fromstart
 

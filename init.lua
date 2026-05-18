@@ -1,3 +1,4 @@
+vim.env.PATH = vim.env.PATH .. ";C:\\Users\\Andre\\.bun\\bin"
 vim.g.wakatime_enabled = true -- comment this line out to disable all wakatime functionality
 
 vim.g.mapleader = " "

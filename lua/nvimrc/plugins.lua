@@ -60,6 +60,28 @@ require("lazy").setup({
     ft = { "splunk", "splunkxml" },
   },
   {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    opts = {
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+      formatters_by_ft = {
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        json =       { "prettier" },
+      },
+      formatters = {
+        prettier = {
+          -- Installed with bun which does not make a .cmd
+          command = "prettier.exe"
+        },
+      },
+    },
+  },
+  {
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
@@ -70,6 +92,7 @@ require("lazy").setup({
         { filter = { event = "msg_showmode", find = "WakaTime" }, opts = { skip = true } },
         { filter = { error = true, find = "WakaTime" }, opts = { skip = true } },
         { filter = { warning = true, find = "WakaTime" }, opts = { skip = true } },
+        { filter = { event = "msg_showmode", find = "TERMINAL" }, opts = { skip = true } },
         { view = "mini", filter = { event = "msg_showmode" } },
       },
       messages = { enabled = true, view = "mini", view_error = "mini", view_warn = "mini" },

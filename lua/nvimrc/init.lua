@@ -127,6 +127,10 @@ map({ "i", "v", "n", "s", "x" }, "å", "<Esc>", { desc = "Enter normal mode (mac
 map("t", "å", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal (mac option+a)" })
 map({ "n", "v", "s", "x" }, "<C-s>", "<cmd>w<cr>", { desc = "Save" })
 map("i", "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
-map("n", "<C-A-c>", "<cmd>%y+<cr>", { desc = "Copy entire file" })
+map("n", "<C-A-c>", function()
+  local pos = vim.fn.getpos(".")
+  vim.cmd("%y+")
+  vim.fn.setpos(".", pos)
+end, { desc = "Copy entire file" })
 
 vim.cmd([[cnoreabbrev <expr> f getcmdtype() == ':' && getcmdline() == 'f' ? 'Oil' : 'f']])
