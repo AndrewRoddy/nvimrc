@@ -56,7 +56,8 @@ require("lazy").setup({
     end,
   },
   {
-    dir = vim.fn.stdpath("config") .. "/local-plugins/splunk-syntax-highlighting",
+    "AndrewRoddy/splunk-syntax.nvim",
+    commit = "cdbe88008dbd3b8ad356a7e34c365db57f88caea",
     ft = { "splunk", "splunkxml" },
   },
   {
