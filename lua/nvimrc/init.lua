@@ -35,7 +35,6 @@ opt.expandtab = true
 opt.shiftwidth = 2
 opt.tabstop = 2
 opt.softtabstop = 2
-opt.smartindent = true
 
 opt.ignorecase = true
 opt.smartcase = true
@@ -120,11 +119,16 @@ map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 map("v", "<", "<gv", { desc = "Indent left, keep selection" })
 map("v", ">", ">gv", { desc = "Indent right, keep selection" })
+
+-- Allows using Alt+a to enter normal mode everywhere
 map({ "i", "v", "n", "s", "x" }, "<A-a>", "<Esc>", { desc = "Enter normal mode" })
 map("t", "<A-a>", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal" })
+
 -- Mac Option+a sends å when terminal doesn't treat Option as Meta
 map({ "i", "v", "n", "s", "x" }, "å", "<Esc>", { desc = "Enter normal mode (mac option+a)" })
 map("t", "å", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal (mac option+a)" })
+
+-- Ctrl+s to save
 map({ "n", "v", "s", "x" }, "<C-s>", "<cmd>w<cr>", { desc = "Save" })
 map("i", "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
 map("n", "<C-A-c>", function()
@@ -134,3 +138,16 @@ map("n", "<C-A-c>", function()
 end, { desc = "Copy entire file" })
 
 vim.cmd([[cnoreabbrev <expr> f getcmdtype() == ':' && getcmdline() == 'f' ? 'Oil' : 'f']])
+
+-- Disables the --INSERT-- when going into insert mode
+vim.opt.showmode = false
+
+-- Adds ability to look up stuff in pydoc easily
+vim.keymap.set('n', '<leader>pd', function()
+  vim.ui.input({ prompt = 'pydoc: ' }, function(input)
+    if input and input ~= '' then
+      vim.cmd('terminal uv run python -m pydoc ' .. input)
+    end
+  end)
+end)
+
