@@ -77,6 +77,7 @@ local function set_default_colors()
   vim.api.nvim_set_hl(0, "MsgArea", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#504945", bg = "#282820" })
   vim.api.nvim_set_hl(0, "WinSeparatorActive", { fg = "#ff922f", bg = "#282820", bold = true })
+  vim.api.nvim_set_hl(0, "Cursor", { fg = "#282820", bg = "#ff922f" })
   vim.api.nvim_set_hl(0, "LineNr", { fg = "#7c6f64", bg = "#282820" })
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "NormalFloat", { fg = "#EBDBB2", bg = "#282820" })
@@ -97,6 +98,17 @@ local function set_default_colors()
 end
 vim.api.nvim_create_autocmd("ColorScheme", { callback = set_default_colors })
 set_default_colors()
+
+-- Sets the real terminal cursor color via OSC 12 (Cursor hl group alone
+-- only affects GUI clients; most terminals need the raw escape code).
+if vim.fn.has("gui_running") == 0 then
+  vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function() io.write("\27]12;#ff922f\7") end,
+  })
+  vim.api.nvim_create_autocmd("VimLeave", {
+    callback = function() io.write("\27]112\7") end,
+  })
+end
 
 local function update_active_window_separators()
   local current = vim.api.nvim_get_current_win()

@@ -7,5 +7,5 @@
   "oil.nvim": { "branch": "master", "commit": "0fcc83805ad11cf714a949c98c605ed717e0b83e" },
   "splunk-syntax.nvim": { "branch": "main", "commit": "cdbe88008dbd3b8ad356a7e34c365db57f88caea" },
   "vim-closetag": { "branch": "master", "commit": "d0a562f8bdb107a50595aefe53b1a690460c3822" },
-  "vim-wakatime": { "branch": "master", "commit": "3d2c6d581f717ee6ffd824ba90dba56de1a68927" }
+  "vim-wakatime": { "branch": "master", "commit": "8217dfb5a5a3ad3a509365d8a39d7daca12b1745" }
 }
