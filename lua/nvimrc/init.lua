@@ -49,6 +49,10 @@ opt.laststatus = 3
 opt.foldmethod = "indent"
 opt.foldlevel = 99
 opt.foldenable = true
+-- Default is "#", meant for C preprocessor lines. In Python that makes a
+-- comment at the top of a block inherit the outer fold level, so it gets
+-- left out of the fold.
+opt.foldignore = ""
 
 opt.undofile = true
 opt.swapfile = false
