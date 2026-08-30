@@ -149,6 +149,33 @@ map("n", "<C-A-c>", function()
   vim.fn.setpos(".", pos)
 end, { desc = "Copy entire file" })
 
+-- Shift+Alt+j/k to duplicate the current line (or selection) below/above, like VS Code
+local function duplicate_line(dir)
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_get_current_line()
+  local at = dir == "below" and row or row - 1
+  vim.api.nvim_buf_set_lines(0, at, at, false, { line })
+  vim.api.nvim_win_set_cursor(0, { dir == "below" and row + 1 or row, col })
+end
+
+local function duplicate_selection(dir)
+  local srow, erow = vim.fn.line("v"), vim.fn.line(".")
+  if srow > erow then srow, erow = erow, srow end
+  local lines = vim.api.nvim_buf_get_lines(0, srow - 1, erow, false)
+  local count = #lines
+  vim.cmd("normal! " .. vim.api.nvim_replace_termcodes("<Esc>", true, false, true))
+  local at = dir == "below" and erow or srow - 1
+  vim.api.nvim_buf_set_lines(0, at, at, false, lines)
+  local first = at + 1
+  vim.api.nvim_win_set_cursor(0, { first, 0 })
+  vim.cmd("normal! V" .. (count > 1 and (count - 1) .. "j" or ""))
+end
+
+map({ "n", "i" }, "<A-J>", function() duplicate_line("below") end, { desc = "Duplicate line below" })
+map({ "n", "i" }, "<A-K>", function() duplicate_line("above") end, { desc = "Duplicate line above" })
+map("x", "<A-J>", function() duplicate_selection("below") end, { desc = "Duplicate selection below" })
+map("x", "<A-K>", function() duplicate_selection("above") end, { desc = "Duplicate selection above" })
+
 vim.cmd([[cnoreabbrev <expr> f getcmdtype() == ':' && getcmdline() == 'f' ? 'Oil' : 'f']])
 
 -- Disables the --INSERT-- when going into insert mode
