@@ -1,20 +1,3 @@
-if vim.g.wakatime_enabled then
-  local orig_notify = vim.notify
-  vim.notify = function(msg, level, opts)
-    if type(msg) == "string" and msg:find("WakaTime", 1, true) then return end
-    return orig_notify(msg, level, opts)
-  end
-  local orig_echo = vim.api.nvim_echo
-  vim.api.nvim_echo = function(chunks, history, o)
-    if type(chunks) == "table" then
-      for _, c in ipairs(chunks) do
-        if type(c) == "table" and type(c[1]) == "string" and c[1]:find("WakaTime", 1, true) then return end
-      end
-    end
-    return orig_echo(chunks, history, o)
-  end
-end
-
 local opt = vim.opt
 
 opt.number = true
@@ -49,6 +32,10 @@ opt.laststatus = 3
 opt.foldmethod = "indent"
 opt.foldlevel = 99
 opt.foldenable = true
+-- Default is "#", meant for C preprocessor lines. In Python that makes a
+-- comment at the top of a block inherit the outer fold level, so it gets
+-- left out of the fold.
+opt.foldignore = ""
 
 opt.undofile = true
 opt.swapfile = false

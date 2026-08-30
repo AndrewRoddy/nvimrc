@@ -18,11 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "wakatime/vim-wakatime",
-    enabled = vim.g.wakatime_enabled == true,
-    lazy = false,
-  },
-  {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
     opts = {},
@@ -88,11 +83,6 @@ require("lazy").setup({
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
       routes = {
-        { filter = { event = "notify", find = "WakaTime" }, opts = { skip = true } },
-        { filter = { event = "msg_show", find = "WakaTime" }, opts = { skip = true } },
-        { filter = { event = "msg_showmode", find = "WakaTime" }, opts = { skip = true } },
-        { filter = { error = true, find = "WakaTime" }, opts = { skip = true } },
-        { filter = { warning = true, find = "WakaTime" }, opts = { skip = true } },
         { filter = { event = "msg_showmode", find = "TERMINAL" }, opts = { skip = true } },
         { view = "mini", filter = { event = "msg_showmode" } },
       },
