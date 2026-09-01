@@ -127,6 +127,19 @@ map("t", "<A-a>", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal" })
 map({ "i", "v", "n", "s", "x" }, "å", "<Esc>", { desc = "Enter normal mode (mac option+a)" })
 map("t", "å", [[<C-\><C-n>]], { desc = "Enter normal mode from terminal (mac option+a)" })
 
+-- Alt+r in :term re-runs the last shell command (clears the line, presses Up, Enter).
+-- Note: Ctrl+I is literally Tab, so binding it would break shell completion.
+map("t", "<A-r>", "<C-u><Up><CR>", { desc = "Re-run last terminal command" })
+map("t", "®", "<C-u><Up><CR>", { desc = "Re-run last terminal command (mac option+r)" })
+
+-- Same thing from normal mode inside a terminal buffer
+map("n", "<A-r>", function()
+  if vim.bo.buftype == "terminal" then
+    vim.cmd("startinsert")
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-u><Up><CR>", true, true, true), "n", false)
+  end
+end, { desc = "Re-run last terminal command" })
+
 -- Ctrl+s to save
 map({ "n", "v", "s", "x" }, "<C-s>", "<cmd>w<cr>", { desc = "Save" })
 map("i", "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
