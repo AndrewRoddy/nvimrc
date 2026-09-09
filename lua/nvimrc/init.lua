@@ -19,6 +19,16 @@ opt.shiftwidth = 2
 opt.tabstop = 2
 opt.softtabstop = 2
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.tabstop = 4
+  end,
+})
+
 opt.ignorecase = true
 opt.smartcase = true
 opt.incsearch = true
