@@ -60,19 +60,29 @@ require("lazy").setup({
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     opts = {
-      format_on_save = {
-        timeout_ms = 500,
+      format_after_save = {
         lsp_format = "fallback",
       },
       formatters_by_ft = {
         javascript = { "prettier" },
+        javascriptreact = { "prettier" },
         typescript = { "prettier" },
+        typescriptreact = { "prettier" },
         json =       { "prettier" },
+        jsonc =      { "prettier" },
+        css =        { "prettier" },
+        scss =       { "prettier" },
+        less =       { "prettier" },
+        html =       { "prettier" },
+        vue =        { "prettier" },
+        yaml =       { "prettier" },
+        markdown =   { "prettier" },
+        graphql =    { "prettier" },
       },
       formatters = {
-        prettier = {
-          -- Installed with bun which does not make a .cmd
-          command = "prettier.exe"
+        -- Only runs Prettier when the project has a Prettier config
+        -- -- Finds the local node_modules binary
+        prettier = { require_cwd = true },
         },
       },
     },

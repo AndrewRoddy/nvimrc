@@ -1,5 +1,3 @@
-vim.env.PATH = vim.env.PATH .. ";C:\\Users\\Andre\\.bun\\bin"
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
