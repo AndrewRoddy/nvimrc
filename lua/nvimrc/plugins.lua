@@ -18,12 +18,18 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    "folke/lazy.nvim",
+    commit = "306a05526ada86a7b30af95c5cc81ffba93fef97",
+  },
+  {
     "numToStr/Comment.nvim",
+    commit = "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
     event = "VeryLazy",
     opts = {},
   },
   {
     "alvan/vim-closetag",
+    commit = "d0a562f8bdb107a50595aefe53b1a690460c3822",
     ft = { "html", "xhtml", "xml", "jsx", "tsx", "javascriptreact", "typescriptreact", "vue", "svelte", "php" },
     init = function()
       vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.jsx,*.tsx,*.vue,*.svelte,*.php"
@@ -34,6 +40,7 @@ require("lazy").setup({
   },
   {
     "stevearc/oil.nvim",
+    commit = "0fcc83805ad11cf714a949c98c605ed717e0b83e",
     lazy = false,
     config = function()
       require("oil").setup({
@@ -68,6 +75,7 @@ require("lazy").setup({
   },
   {
     "stevearc/conform.nvim",
+    commit = "18aeab3d63d350dcf44d64c462cc489a3412af40",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     opts = {
@@ -112,8 +120,11 @@ require("lazy").setup({
   },
   {
     "folke/noice.nvim",
+    commit = "7bfd942445fb63089b59f97ca487d605e715f155",
     event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = {
+      { "MunifTanjim/nui.nvim", commit = "de740991c12411b663994b2860f1a4fd0937c130" },
+    },
     opts = {
       routes = {
         { filter = { event = "msg_showmode", find = "TERMINAL" }, opts = { skip = true } },
