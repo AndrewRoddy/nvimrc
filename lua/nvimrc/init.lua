@@ -200,3 +200,5 @@ vim.keymap.set('n', '<leader>pd', function()
   end)
 end)
 
+
+require("nvimrc.prettier_indent")

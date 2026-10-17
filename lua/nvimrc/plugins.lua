@@ -56,6 +56,17 @@ require("lazy").setup({
     ft = { "splunk", "splunkxml" },
   },
   {
+    -- Uses the local checkout on machines that have one, otherwise clones from GitHub.
+    "AndrewRoddy/vimquire",
+    dir = (vim.uv or vim.loop).fs_stat("C:/Coding/vimquire") and "C:/Coding/vimquire" or nil,
+    cmd = { "Search", "SearchOpen", "SearchSources", "SearchAdd", "SearchRemove" },
+    init = function()
+      -- User commands must start with a capital, so expand a typed :search into :Search.
+      vim.cmd([[cnoreabbrev <expr> search getcmdtype() ==# ':' && getcmdline() ==# 'search' ? 'Search' : 'search']])
+    end,
+    opts = {},
+  },
+  {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
@@ -75,14 +86,26 @@ require("lazy").setup({
         less =       { "prettier" },
         html =       { "prettier" },
         vue =        { "prettier" },
+        svelte =     { "prettier" },
         yaml =       { "prettier" },
         markdown =   { "prettier" },
         graphql =    { "prettier" },
+        rust =       { "rustfmt" },
       },
       formatters = {
         -- Only runs Prettier when the project has a Prettier config
         -- -- Finds the local node_modules binary
-        prettier = { require_cwd = true },
+        prettier = {
+          require_cwd = true,
+          -- Wrap at 60 columns, overriding the project config.
+          -- Svelte always uses spaces, even if the project config says tabs.
+          prepend_args = function(_, ctx)
+            local args = { "--print-width=60" }
+            if vim.bo[ctx.buf].filetype == "svelte" then
+              table.insert(args, "--use-tabs=false")
+            end
+            return args
+          end,
         },
       },
     },
