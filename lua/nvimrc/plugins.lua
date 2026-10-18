@@ -98,6 +98,7 @@ require("lazy").setup({
         yaml =       { "prettier" },
         markdown =   { "prettier" },
         graphql =    { "prettier" },
+        python =     { "black" },
         rust =       { "rustfmt" },
       },
       formatters = {
