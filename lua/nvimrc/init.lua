@@ -20,12 +20,19 @@ opt.tabstop = 2
 opt.softtabstop = 2
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact", "psu" },
+  pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact", "psu", "sql" },
   callback = function()
     vim.opt_local.expandtab = true
     vim.opt_local.shiftwidth = 4
     vim.opt_local.softtabstop = 4
     vim.opt_local.tabstop = 4
+  end,
+})
+
+-- Don't continue comments on <Enter> or o/O (ftplugins re-add these, so set per buffer)
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "r", "o" })
   end,
 })
 

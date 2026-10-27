@@ -100,8 +100,17 @@ require("lazy").setup({
         graphql =    { "prettier" },
         python =     { "black" },
         rust =       { "rustfmt" },
+        sql =        { "sqlfluff" },
       },
       formatters = {
+        -- Only runs when the project has a .sqlfluff/pyproject.toml/setup.cfg/tox.ini
+        -- "format" only fixes layout, so leftover lint errors don't block it
+        -- Exits 1 when something it can't fix remains (e.g. a long comment),
+        -- but still prints the formatted file, so accept that too.
+        sqlfluff = {
+          args = { "format", "-" },
+          exit_codes = { 0, 1 },
+        },
         -- Only runs Prettier when the project has a Prettier config
         -- -- Finds the local node_modules binary
         prettier = {
