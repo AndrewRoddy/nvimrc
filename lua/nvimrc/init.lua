@@ -99,6 +99,23 @@ local function set_default_colors()
   vim.api.nvim_set_hl(0, "OilFile", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "OilLink", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "OilSocket", { fg = "#EBDBB2", bg = "#282820" })
+
+  -- Code colors. The default theme makes most of these the same off-white.
+  local code_colors = {
+    ["#ff922f"] = { "Keyword", "Statement", "PreProc", "@keyword" },
+    ["#8ec07c"] = { "Function", "@function", "@function.builtin", "@function.macro" },
+    ["#fabd2f"] = { "Type", "@type", "@type.builtin" },
+    ["#b8bb26"] = { "String", "Character", "@string", "@character" },
+    ["#d3869b"] = { "Number", "Boolean", "Constant", "@number", "@boolean", "@constant" },
+    ["#83a598"] = { "Special", "@module", "@constant.builtin", "@variable.builtin" },
+    ["#928374"] = { "Comment", "@comment" },
+    ["#EBDBB2"] = { "Identifier", "Operator", "Delimiter", "@variable", "@operator", "@punctuation" },
+  }
+  for color, groups in pairs(code_colors) do
+    for _, group in ipairs(groups) do
+      vim.api.nvim_set_hl(0, group, { fg = color })
+    end
+  end
 end
 vim.api.nvim_create_autocmd("ColorScheme", { callback = set_default_colors })
 set_default_colors()

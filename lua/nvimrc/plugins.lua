@@ -22,6 +22,17 @@ require("lazy").setup({
     commit = "306a05526ada86a7b30af95c5cc81ffba93fef97",
   },
   {
+    -- master is the branch for Neovim 0.11. main needs 0.12 and a full rewrite of this setup.
+    "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    commit = "cf12346a3414fa1b06af75c79faebe7f76df080a",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvimrc.treesitter")
+    end,
+  },
+  {
     "numToStr/Comment.nvim",
     commit = "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
     event = "VeryLazy",
