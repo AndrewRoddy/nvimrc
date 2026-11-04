@@ -129,6 +129,20 @@ require("lazy").setup({
     },
   },
   {
+    -- v4.1.2: v5 needs Neovim 0.12+
+    "eero-lehtinen/oklch-color-picker.nvim",
+    commit = "9b5db80d5f6af8fbc31bad29f69ad76f63154944",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>v",
+        function() require("oklch-color-picker").pick_under_cursor() end,
+        desc = "Color pick under cursor",
+      },
+    },
+    opts = {},
+  },
+  {
     "folke/noice.nvim",
     commit = "7bfd942445fb63089b59f97ca487d605e715f155",
     event = "VeryLazy",
