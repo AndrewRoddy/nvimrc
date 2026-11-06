@@ -100,6 +100,11 @@ local function set_default_colors()
   vim.api.nvim_set_hl(0, "OilLink", { fg = "#EBDBB2", bg = "#282820" })
   vim.api.nvim_set_hl(0, "OilSocket", { fg = "#EBDBB2", bg = "#282820" })
 
+  -- Never draw diagnostic underlines, even if an extmark for one gets created.
+  for _, severity in ipairs({ "Error", "Warn", "Info", "Hint" }) do
+    vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. severity, {})
+  end
+
   -- Code colors. The default theme makes most of these the same off-white.
   local code_colors = {
     ["#ff922f"] = { "Keyword", "Statement", "PreProc", "@keyword" },

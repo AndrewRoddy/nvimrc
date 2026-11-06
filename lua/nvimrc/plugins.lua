@@ -33,6 +33,31 @@ require("lazy").setup({
     end,
   },
   {
+    "mason-org/mason.nvim",
+    commit = "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d", -- v2.3.1
+    lazy = false,
+    build = ":MasonUpdate",
+    config = function()
+      require("nvimrc.lsp").setup_mason()
+    end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    commit = "a5671269a1ddfa7790cdf97c14e600e269da550f", -- v2.3.0
+    dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
+    opts = {
+      automatic_enable = false,
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    commit = "4d363f93c3581b9212a24f7a830d7590b3f050af", -- v2.12.0
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("nvimrc.lsp").setup_servers()
+    end,
+  },
+  {
     "numToStr/Comment.nvim",
     commit = "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
     event = "VeryLazy",
