@@ -139,6 +139,10 @@ require("lazy").setup({
         sql =        { "sqlfluff" },
       },
       formatters = {
+        -- Wrap at 88 columns, overriding the project config (e.g. pyproject.toml).
+        black = {
+          prepend_args = { "--line-length=88" },
+        },
         -- Only runs when the project has a .sqlfluff/pyproject.toml/setup.cfg/tox.ini
         -- "format" only fixes layout, so leftover lint errors don't block it
         -- Exits 1 when something it can't fix remains (e.g. a long comment),
@@ -152,10 +156,10 @@ require("lazy").setup({
         -- otherwise Mason's. Mason puts its bin folder first on PATH, so black and sqlfluff
         -- also come from Mason.
         prettier = {
-          -- Wrap at 60 columns, overriding the project config.
+          -- Wrap at 88 columns, overriding the project config.
           -- Svelte always uses spaces, even if the project config says tabs.
           prepend_args = function(_, ctx)
-            local args = { "--print-width=60" }
+            local args = { "--print-width=88" }
             if vim.bo[ctx.buf].filetype == "svelte" then
               table.insert(args, "--use-tabs=false")
             end
