@@ -147,10 +147,11 @@ require("lazy").setup({
           args = { "format", "-" },
           exit_codes = { 0, 1 },
         },
-        -- Only runs Prettier when the project has a Prettier config
-        -- -- Finds the local node_modules binary
+        -- Runs Prettier everywhere, with or without a project Prettier config.
+        -- Uses the project's node_modules Prettier when there is one (so its plugins load),
+        -- otherwise Mason's. Mason puts its bin folder first on PATH, so black and sqlfluff
+        -- also come from Mason.
         prettier = {
-          require_cwd = true,
           -- Wrap at 60 columns, overriding the project config.
           -- Svelte always uses spaces, even if the project config says tabs.
           prepend_args = function(_, ctx)

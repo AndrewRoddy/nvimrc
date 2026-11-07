@@ -77,8 +77,22 @@ local servers = {
   },
 }
 
+-- Formatters used by conform.nvim (see plugins.lua). Installed automatically if missing.
+-- rustfmt isn't here: it comes with the Rust toolchain from rustup.
+local formatters = { "prettier", "black", "sqlfluff" }
+
 function M.setup_mason()
   require("mason").setup()
+
+  local registry = require("mason-registry")
+  registry.refresh(function()
+    for _, name in ipairs(formatters) do
+      local ok, pkg = pcall(registry.get_package, name)
+      if ok and not pkg:is_installed() and not pkg:is_installing() then
+        pkg:install()
+      end
+    end
+  end)
 
   -- Start a newly installed server in the current buffer without a restart.
   require("mason-registry"):on("package:install:success", function()
